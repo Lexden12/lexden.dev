@@ -1,0 +1,102 @@
+<!--
+Copyright 2025 Alex "Lexden" Schendel
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <%- include('../layout_header') %>
+  <meta name="description"
+        content="Lexden's development page logging the development of a low-cost, fully-featured air quality meter which uploads real-time air quality data to a local webpage.">
+</head>
+<body class="bg-dark">
+  <%- include('../layout') %>
+	<h1 class="text-light">Dev log of Air Quality Meter</h1>
+	<br>
+	<h2 class="text-light" id="description">Description:</h2>
+	<p class="text-light">This project has the goal of making a low-cost, fully-featured air quality meter.</p>
+	<p class="text-light">As any true WFH gamer, I spend a good 16 hours in one room with the door closed most of the time (partially for noise and partially to keep my room warm haha).</p>
+	<p class="text-light">As such, I started to wonder how much CO2 my room must build up over time. So I thought about what I could do to track this easily.</p>
+	<p class="text-light">Well, a modern, fully-featured air quality tester costs on the order of $100+... With most being in the range of $300.</p>
+	<p class="text-light">Given that my desire to know the air quality of my room was just a little curiosity, I was definitely not willing to pay more than say $50 for a sensor.</p>
+	<p class="text-light">So I got to looking... Turns out there are several people who have tried to make their own DiY air quality meters before! And the fully-featured sensors they used (e.g. the MQ-135) can be easily found for under $10 and already attached to a board providing relatively easy-to-use output.</p>
+	<p class="text-light">The only problem that remained was how to provide an interface for these sensors. Most of the DiY meters were fully-integrated units where you have a little screen providing basic data read-outs.</p>
+	<p class="text-light">I dislike that solution because:</p>
+	<ul>
+	    <li class="text-light">I don't want to have to read a tiny display just to get basic information out of my sensor.</li>
+	    <li class="text-light">If I have multiple sensors, I don't want to have to physically move to that room to look at the little screen on it.</li>
+	</ul>
+	<p class="text-light">In other words, I want to have data from all my sensors at my fingertips wherever I am. That is, I want to make the data avaiable on a webpage I can access.</p>
+	<p class="text-light">Besides solving the aforementioned annoyances, it also provides a lot more potential. Now I could store the data long-term on my web server and do interesting analytics, like graphs of change over time and easy-to-glance-at meters showing the current range of all the pollutants in question.</p>
+	<p class="text-light">This left just one more thing to figure out then: what microcontroller to use? Arduino has some WiFi options, but the Arduino Uno WiFi REV2 is $54?! That's definitely overkill for the tiny job my air quality meters need to perform.</p>
+	<p class="text-light">Okay, turns out there's an Arduino Nano 33 IoT. It's $24, making it a much more reasonable price (and size) for this project. However, $24 is still pretty pricey and I've never seen it in-stock.</p>
+	<p class="text-light">At this point, I was kinda lost... However, as our true overlord (take that in your preferred connotation), Google ads came to the rescue, showing me an ad for the <a href="https://www.seeedstudio.com/Seeed-XIAO-ESP32C3-p-5431.html">Seeed Studio XIAO ESP32C3</a>.</p>
+	<p class="text-light">This tiny MCU is less than half the size of the Arduino Nano 33 IoT with 14 total pins (11 for GPIO with 4 of those being analog compatible) and a single RISC-V core. However, it still has WiFi and Bluetooth onboard! Not only that, it's price is an incredible $5?! With the parts I found for this project, the per-meter cost would be less than $10 each!</p>
+	<p class="text-light">You can find the parts list <a href="/projects/airquality/PartsList.xlsx" download>here</a>. I have once again converted my LibreOffice spreadsheet into Microsoft's format for your compatibility :P</p>
+	<p class="text-light">Note, the MCU does not come with headers for the pins, so you'll probably want a soldering iron for this project. If you want your MCU to be capable of being repurposed, you could solder headers to it. Otherwise, you could solder wires from the sensor directly to the board.</p>
+	<p class="text-light">But the fun part: the cost per sensor comes to a whopping <b>$7.99</b>.</p>
+	<h2 class="text-light" id="MQ135">MQ135 Calibration Tutorial</h2>
+	<p class="text-light">So this turned out to be a rabbit-hole and a half, but I did all the hard work so you don't have to haha.</p>
+	<p class="text-light">Naturally, our goal is to use this sensor to find pollutant concentration. We'll target CO2 since that will likely be the only gas that would vary significantly inside a room.</p>
+	<p class="text-light">The MQ135 datasheet provides the relationship of RS/R0. RS is the measured sensor resistance. R0 is the sensor resistance at 100ppm of ammonia at 20C at 33% relative humidity.</p>
+	<p class="text-light">In what I assume is a typo, they show the graph of RS/R0 hitting 1 with 100ppm of NH4 at 65% relative humidity... I think they meant NH3 here. As for the 65% relative humidity, I don't really know what to say. From my calculations, it should be around 1.05 rather than 1.</p>
+	<p class="text-light">As such, to convert RS into a ppm, we need to know the R0 of this sensor. However, it would be hard for any normal person to create a controlled environment of 100ppm ammonia etc.</p>
+	<p class="text-light">Fortunately, the datasheet provides the RS/R0 curve in relation to the concentration of several gasses, including CO2. This is something we can measure because the global CO2 concentration outdoors is relatively uniform and is measured very frequently.</p>
+	<p class="text-light">Furthermore, a graph relating RS/R0 to the temperature and relative humidity is provided, so if we extrapolate all the relevant curves, we can create some equations to pretty accurately measure R0 which will then allow us to calibrate our MQ135.</p>
+	<p class="text-light">One caveat is that the datasheet recommends a load resistor of 10k-47kOhm (20kOhm preferred), but the load resistor on my boards were 2kOhm. Apparently, most boards have 1kOhm load resistors on there. I couldn't tell you why.</p>
+	<p class="text-light">While there is a trimpot on these boards, all it does it go into a comparator and provide the digital output. When gas concentration makes the voltage exceed the voltage dictated by the trimpot, then the digital output goes low to tell you there's something going on. (Completely and utterly useless in our use-case because we already have the analog output. Why did they not put a 20kOhm resistor as the load resistor? Or better yet, put a trimpot as the load resistor?! Who knows, but every single MQ-135 sensor I see is soldered to a board with the exact same, stupid layout)</p>
+	<p class="text-light">So I guess we either accept that our measurements might be a little inaccurate and imprecise because of a stupidly low load resistance, or desolder the SMT resistor and replace it with a sensical one. I might try that some day.</p>
+	<p class="text-light">With that rant over, now we can get into those curve fits. (I took a screenshot of the graphs in the datasheet, put them in WebPlotDigitizer, then exported the data to plotly for curve fits)</p>
+	<p class="text-light">All the curves in question, especially the curve relating to CO2 concentration, fit an exponential curve well. This curve is: y = A + B*e^(C*x). Plotly can find the A, B, and C constants to fit the curve.</p>
+	<p class="text-light">For CO2 concentration, this becomes: RS/R0 = A + B*e^(C*x) where x is CO2 concentration.</p>
+	<p class="text-light">We also have temperature and humidity: RS/R0 = A + B*e^(C*x) where x is temperature. There are two curves provided, one at 33% relative humidity(RH), and the other at 85% relative humidity(RH).</p>
+	<p class="text-light">The constants for each of these are as follows:</p>
+	<ol>
+	    <li class="text-light">CO2: A = 0.7543112781685416, B = 1.8439599669319493, C = -0.018631632668853735</li>
+	    <li class="text-light">33% RH: A = 0.8757977289412064, B = 0.4747754252412466, C = -0.05694953298751679</li>
+	    <li class="text-light">85% RH: A = 0.7838609151791904, B = 0.4439965738310803, C = -0.05376622367252174</li>
+	</ol>
+	<p class="text-light">Since we have these equations to relate RS/R0 with CO2 concentration as well as temperature and humidity, we can figure out what R0 is.</p>
+	<p class="text-light">Since we're solving for R0, let's rewrite the equation: R0 = RS/(A+B*e^(C*x)).</p>
+	<p class="text-light">We know A, B, C, and e (the natural exponent), x is CO2 concentration which can be quickly googled or temperature which can also quickly be googled. Humidity can also be googled and you could just select the curve closer to the current humidity. It happens to be 86% RH outside for me right now, so perfect!</p>
+	<p class="text-light">RS is a little trickier because that varies and we don't have a direct measure of that. However, the datasheet shows that RS is the resistance from VC (5V) to Vout. There is also the load resistance (RL) between GND and Vout.</p>
+	<p class="text-light">In case you were wondering, this is a classic voltage divider circuit, so we get Vout = (VC * RL)/(RS + RL)</p>
+	<p class="text-light">Now, we just solve for RS: RS = RL(VC/Vout - 1).</p>
+	<p class="text-light">RL is the measured load resistance (I get ~2kOhm, but apparently most other boards are 1kOhm as I mentioned before. You can measure the resistance across Vout(often called "AO" for analog out) and GND to tell. VC is the source voltage (should be 5V, you should measure to make sure (if it is less than 4.9V or greater than 5.1V, then you've got to fix that). Lastly, Vout is the analog output. (Oh, and 1 is 1 if you can believe it)</p>
+	<p class="text-light">Finally, we have RS. That means we have all the variables in our R0 = RS/(A+B*e^(C*x)) equation! You can set up the MCU to calculate RS on the fly since everything but Vout is a constant and Vout can be measured by the MCU. A, B, and C are constants you can grab from above. x is either CO2 or temperature which you can easily google.</p>
+	<p class="text-light">So, I just made a sketch to calculate R0 given all these constants. First, it calculates R0 given CO2, then it calculates RS/R0 given temperature/humidity. Then, we can invert the RS/R0 value and then multiply R0/RS against the R0 value we got. This is because the R0 value we got from the CO2 measurement is only valid at 20C at 33% or 65% humidity (it'd be great if they were consistent), so if we aren't measuring at the correct temperature and humidity, we will have to correct for this by multiplying by R0/RS.</p>
+	<p class="text-light">To understand why we must multiply by R0/RS, let's look at an example: At -10C, 33% humidity, RS/R0 = 1.715. In other words, RS = R0*1.715, so RS is going to be measured to be 71.5% higher than it would be at 20C, 33% humidity. Thus, since our R0 measurement is based off of CO2 concentration at 20C, 33% humidity, we must multiply by 0.583 (the inverse of 1.715) to correct for this. If you plot it out, you will see that these curves are not perfect fits, but they are quite close. However, because of this, unless you are measuring in the extreme cold, it probably isn't worth using this. I measured R0 at 5C, 84% humidity, so I just used the RS/R0 data point at 5C, 85% from the datasheet. I then inverted it to get 0.87845. So maybe it'd be best if you could just measure R0 when the weather matches up close to a temperature/humidity that the datasheet has data points for?</p>
+	<p class="text-light">In day-to-day use, I'm assuming your home won't be colder than 16C or warmer than 26C... In which case, the worst you could get is an 11% error at 26C at 85% RH. I don't think that's high enough to warrant the extra complexity. The only reason I included it is because the R0 measurement will require it since I am not trusting my indoors to have the correct CO2 levels, so I'm measuring outside in the winter. Perhaps I should've just assumed that the large, open rooms in the house where people don't spend much time in are good enough?</p>
+	<h2 class="text-light" id="log">Log:</h2>
+	<p class="text-light"><b>1/22/2023 2:19</b>: Theoretically finished two sketches: one to calculate R0 and one to calculate the ppm of CO2. Before running, I should test to make sure the equations are written correctly. I also still need to figure out how to fix the POST requests. For finding R0, I plan to send the calculated R0 to the server every 5 seconds, and after maybe an hour I can take the average. Then, in the long term, I send the calculated CO2 ppm (using the initially calculated R0) to the server every 60 seconds to be stored and analyzed on the webpage.</p>
+	<p class="text-light"><b>1/21/2023 20:53</b>: Analyzed the CO2 plot on the MQ135 datasheet to create a curve fit allowing me to extend the plot out to ~420ppm as that is the current global CO2 concentration. This way, I can find "R0" of the MQ135 (reference sensor resistance at 100 ppm of Ammonia at 20C and 65% relative humidity). There are also offsets for different temperatures and relative humidities, so we can just take each MQ135 outside after a 72 hour burn-in period to calibrate it. I'll make an in-depth guide on that later!</p>
+	<p class="text-light"><b>1/21/2023 19:41</b>: Got sucked into a rabbit hole looking at ways to measure particulate matter. It is a lot more expensive, but there's <a href="https://www.seeedstudio.com/Grove-Laser-PM2-5-Sensor-HM3301.html">this</a> PM sensor which seems to be the most affordable sensor from a reputable source. I'll have to add it as an extra item on the BoM for anyone who would be interested in such a thing.</p>
+	<p class="text-light"><b>1/21/2023 19:11</b>: Sensors arrived! They arrived around 12 hours ago, and I started burning one in, only to test the voltage about an hour ago and realize that it was reading 4.7V... The MQ-135 datasheet says it must receive 5V+/-0.1V, so I need to get the voltage up by 200mV. Well, I was being lazy and just had the MCU connected to a meter long USB cable, connected to a 4-port USB-hub, connected to another meter long USB cable haha. Connecting a single meter long USB cable from PC to MCU brought the voltage up to 4.84V. Getting much closer, but still not enough. I then, just plugged it into my phone charger and now it's at 4.96V, perfect! I'll have to get proper post requests working before I try calibrating the sensor it looks like.</p>
+	<p class="text-light"><b>1/21/2023 ~1:00</b>: I suppose I don't how to make proper HTTP requests. I tried to make a POST request with data and I never got ExpressJS to parse data in the body of the request. When I changed it to parse data in the query, I could get a Postman request to successfully complete the transaction, but the MCU still could not get a successful transaction. I'll have to work on this more later.</p>
+	<p class="text-light"><b>1/20/2023</b> Made a basic site running on node with expressjs routing. Currently, this site just catches POST requests and logs the data. However, it is a PoC, proving that I can successfully use the MCU to make a POST request sending data to the server (it worked :D).</p>
+	<p class="text-light"><b>1/19/2023</b>: A small tangent of an update: Some back-of-the-napkin math on the sleep states of the MCU based on numbers from Seeed Studio:</p>
+	<ul>
+	    <li class="text-light">Sleep state: Power Consumption/Longevity on a 2000mAh Li-ion cell</li>
+	    <li class="text-light">Active:  276mW/25 hours</li>
+	    <li class="text-light">Modern sleep:    &#60;100mW/80 hours</li>
+	    <li class="text-light">Light sleep: &#60;20mW/500 hours</li>
+	    <li class="text-light">Deep sleep:  &#60;0.17mW/45,400 hours</li>
+	</ul>
+	<p class="text-light">Deep sleep was for kicks and giggles because it would be hard to use and idle battery drain would be a real factor then haha.</p>
+	<p class="text-light">Still, grab something like 2 x 18650 Li-ion cells (easily 4000mAh) and we're getting over a month on a single charge in light sleep! (4000mAh is the capacity of an average phone battery)</p>
+	<p class="text-light"><b>1/19/2023</b> I made a little program which is able to get the MCU to connect to my WiFi network and then do multiple GET requests to my web server. Next, I'll have to set up a test webpage where I can send POST requests to test the process of sending data to the server and storing it long-term. I have yet to order the AQ sensors.</p>
+	<p class="text-light"><b>1/18/2023</b>: The MCUs just arrived and I got to testing them out. The <a href="https://wiki.seeedstudio.com/XIAO_ESP32C3_Getting_Started/">Seeed Studio XIAO ESP32C3 getting started page</a> is quite helpful. For me, the board defaulted to the ESP32C3 Dev Module, but selecting the XIAO_ESP32C3 board is important because otherwise the Serial output will not work!</p>
+</body>
+</html>

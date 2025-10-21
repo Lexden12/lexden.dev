@@ -1,0 +1,41 @@
+<!--
+Copyright 2025 Alex "Lexden" Schendel
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <%- include('../layout_header') %>
+  <meta name="description" content="Lexden's development page logging the development of this website!">
+</head>
+<body class="bg-dark">
+  <%- include('../layout') %>
+	<h1 class="text-light">Dev log of this website!</h1>
+	<br>
+	<h2 class="text-light" id="description">Description:</h2>
+	<p class="text-light">To describe the development up to the first deployment of this website would start a couple years ago. At the suggestion of a friend, I started working on a website for myself. I used Google Domains to get this domain name, and had an initial website.</p>
+	<p class="text-light">However, this initial website never had proper SSL certs and so it was not easy to access outside of my local network.</p>
+	<p class="text-light">A couple years went by and I finally got motivated to try and solve all the issues. I built a dedicated Linux box to host as a web and game server, and got everything transferred over there. Then, using certbot with let's encrypt, I got SSL certs set up. At long last, the website was ready and accessible from the outside! Unfortunately, it was only the default Apache page (this is an Apache2 webserver), and when I attempted to run the old site I had developed with node and express, it was throwing all sorts of fits. Not to mention that npm was complaining about my HTML renderer having vulns with no ability to fix them. In the end, I gave up and started working on a new site.</p>
+	<p class="text-light">It had been several years since I had last done any web design, so it was definitely a struggle getting reoriented with node, express, etc. Eventually, I developed this layout with bootstrap and got a handle on routing everything in express.</p>
+	<p class="text-light">To recap, this is just a simple website that currently uses Node for overall framework management, express for routing and request handling, and Bootstrap for most of the frontend styling and interactive elements.</p>
+	<h2 class="text-light" id="log">Log:</h2>
+	<p class="text-light">To-Do: A larger undertaking that would be great: Overhaul log entries to allow them to be easily parsed by javascript and then make the home page display the latest log entry updates with a link to the respective project.</p>
+	<p class="text-light">To-Do: Figure out how to make a table of contents (I want to make it so you can immediately select between the different h2 tags (Description and Log) from a clean UI. I know how to use their respective IDs to scroll to the correct spot, but I'd like to make a friendly UI like a professional site haha</p>
+	<p class="text-light">1/4/2023: So getting www.lexden.dev working broke lexden.dev. I was willing to make that tradeoff at first since all the browsers I tested would automatically re-route to www.lexden.dev, but apparently another reason why Apple sucks is that they are too stupid to do that properly. As such, I dug into it and realized that certbot was a bit too smart for its own good, automagically updating the apache certificate for the virtualhost when a certificate was received. As such, it was replacing the lexden.dev cert with the www.lexden.dev cert, hence why lexden.dev broke (apache no longer knew where that cert was). Renewed my lexden.dev cert and made two separate VirtualHosts for lexden.dev and www.lexden.dev with their own respective certs and now it all works!</p>
+	<p class="text-light">1/4/2023: So certbot is some enigma... I was struggling with certs for a couple subdomains, including www.lexden.dev. Then today, I run certbot and select the certs I wanna grab and it just grabs them! So I guess that's done... I have the certs and I have my crontab set to auto-renew them and I'm too afraid to try to mess with it any more haha.</p>
+	<p class="text-light">12/30/2022: Spent many hours working with ChatGPT of all things to get the site working. Most effort spent on getting Bootstrap implemented properly in the site template and scaling it properly on mobile. I also had to figure out how to implement the navbar properly to show and hide with the button that appears on mobile.</p>
+	<p class="text-light">12/28/2022: Recertified my certificates with certbot!</p>
+</body>
+</html>

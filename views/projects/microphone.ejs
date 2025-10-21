@@ -1,0 +1,39 @@
+<!--
+Copyright 2025 Alex "Lexden" Schendel
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <%- include('../layout_header') %>
+  <meta name="description"
+        content="Lexden's development page logging the recreation of the DiY Perks USB-C microphone. This microphone is extremely high quality and low cost. My recreation of this microphone includes designing and manufacturing a custom PCB for greater reliability.">
+</head>
+<body class="bg-dark">
+  <%- include('../layout') %>
+	<h1 class="text-light">Dev log of DiY Microphone</h1>
+	<br>
+	<h2 class="text-light" id="description">Description:</h2>
+	<p class="text-light">This project started with a video from DiY Perks, "Building a quality USB-C microphone". What started as a copy of that project turned into an exercise in electronics EDA for me.
+	<p class="text-light">The idea thus became to make the DiY microphone, but implement the pre-amp with a custom printed PCB and with components that should be more precise and long-lasting.
+	<p class="text-light">This project thus began like any other electronics EDA project for me, KiCAD. Since this project had a majority of its development complete before I started this website, the development log will not be complete, but I will do my best to capture everything.</p>
+	<p class="text-light">Schematic:</p>
+	<p class="text-light">Layout:</p>
+	<p class="text-light">Schematic Correction: After printing a board and destroying one VRM, I realized that I designed the board's power rails backwards. Turns out that it doesn't work so well when you apply reverse polarity to your VRM!</p>
+	<p class="text-light">Simplified assembly and soldering: Getting the wires through the tiny holes intended for the JST connectors has been a massive pain, so I decided to do away with them and make a custom footprint for these through-hole solder points so I can get the stranded wires through more easily.</p>
+	<p class="text-light">Better USB adapter handling: Since I forgot solder points for the USB adapter in the initial build, I had to solder the USB adapter's wires directly to the USB-C breakout board. This is certainly a bad solution, being both very difficult to properly assemble, but also very fragile. As such, I have updated the board with traces across the board to four solder points to allow for simple soldering of these wires.</p>
+	<p class="text-light">USB Adapter Revision: Assembling my second full board was much quicker and easier with the revisions to the PCB, but when I went to test the microphone, not only was there no audio input, but the whole adapter failed to be enumerated. However, if I plugged the audio cable into my first test board's adapter, I was able to get audio input over that adapter. As such, it is clearly the fault of the adapter. The only quest being if it is a faulty adapter (I didn't both to test it before soldering if to the board) or if it is the fault of the PCB. While my traces seem to be alright, it is certainly possible that the traces spanning the PCB have enough loss that the USB device cannot even be enumerated. I find this unlikely, but it seems to be the only obvious answer.</p>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!--
+Copyright 2025 Alex "Lexden" Schendel
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <%- include('../layout_header') %>
+  <meta name="description"
+        content="Lexden's development page logging the development of a RISC-V CPU built up from transistors to gates all the way up to a full CPU.">
+</head>
+<body class="bg-dark">
+  <%- include('../layout') %>
+	<h1 class="text-light">Dev log of DiY CPU!</h1>
+	<br>
+	<h2 class="text-light" id="description">Description:</h2>
+	<p class="text-light">So this project started out with a dream of making my own CPU (even simulated) on a modern architecture.</p>
+	<p class="text-light">In university, I had made a simulated CPU built on the MIT Beta microarchitecture. You can view that ISA <a href="https://www.dropbox.com/s/2hzbawz9v51g6fu/beta_documentation.pdf?dl=0" target="_blank">here</a>. This was a very rewarding experience, but I was left itching to make a CPU built on a modern, fully-functional, frequently used ISA.</p>
+	<p class="text-light">When I first envisioned this project, ARM was the only other option besides x86, and while ARM would be easier to get a hold of, it is still protected by royalties.</p>
+	<p class="text-light">However, RISC-V has quickly been gaining momentum in recent years and is prepared to make a full breakout as an open-source, fully supported ISA. Having everything align like this, I wanted to take the chance to make my own RISC-V CPU.</p>
+	<p class="text-light">My goal will be to first make a simple, minimum viable product that just runs the ISA. I will probably start with a subsection of the architecture and build it on a breadboard for kicks. Then, I will expand it into a full 32-bit or maybe even 64-bit RISC-V CPU built in real simulation software.</p>
+	<p class="text-light">Following this, I will do my best to venture into some basic optimization steps for my own learning. That is, popular tricks which increase the IPC of the CPU core.</p>
+	<h2 class="text-light" id="log">Log:</h2>
+	<p class="text-light">1/3/2023: Made a full BoM for the breadboard CPU. Download it <a href="/projects/cpu/PartsList.xlsx" download>here</a>. While I use LibreOffice, I've exported it as an Excel spreadsheet for your compatibility :P Credit to Ben Eater whose 8-bit breadboard computer kit this is based on.</p>
+</body>
+</html>
