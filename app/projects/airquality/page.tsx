@@ -14,6 +14,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Air Quality Meter — Projects — Lexden",
+  description: "Environmental sensing project for monitoring air quality by Alex \"Lexden\" Schendel.",
+};
+
 export default function AirQuality() {
   return (
     <main className="min-h-screen p-6 bg-neutral-900 text-neutral-100">

@@ -15,6 +15,11 @@ limitations under the License.
 */
 import Image from "next/image";
 
+export const metadata = {
+    title: "Lexden.dev",
+    description: "The home of Lexden",
+};
+
 export default function Home() {
     return (
         <main className="mx-auto p-0">
@@ -25,7 +30,6 @@ export default function Home() {
             <section className="w-full">
                 <div className="w-full">
                     <video
-                        controls
                         autoPlay
                         muted
                         loop

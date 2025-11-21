@@ -14,6 +14,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 import React from "react";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "About — Lexden",
+    description: "About Alex \"Lexden\" Schendel — firmware engineer and maker.",
+};
 import ExternalLink from "@/components/ExternalLink";
 
 export default function About() {

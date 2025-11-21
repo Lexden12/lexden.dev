@@ -14,6 +14,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "This Site — Projects — Lexden",
+  description: "Source and details about the lexden.dev website project.",
+};
+
 export default function Website() {
   return (
     <main className="min-h-screen p-6 bg-neutral-900 text-neutral-100">

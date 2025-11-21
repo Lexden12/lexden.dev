@@ -15,45 +15,62 @@ limitations under the License.
 */
 
 import ProjectCard, { Project } from "@/components/ProjectCard";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Projects — Lexden",
+  description: "A collection of projects by Alex \"Lexden\" Schendel, including hardware and software work.",
+};
 
 // 1. Your Data Array (This replaces your hardcoded HTML)
 // In the future, this could come from a database or CMS.
-const projectsData: Project[] = [
-  {
-    id: 1,
-    title: "CPU Air Quality Meter",
-    description: "A custom hardware monitor that displays local air quality metrics alongside CPU stats. Built using Arduino and C++.",
-    imageUrl: "/images/cpu-meter.jpg", // You need to put an image here in public/ folder
-    tags: ["C++", "Arduino", "Hardware"],
-    status: "Completed",
-    githubUrl: "https://github.com/Lexden12/cpu-meter", // Replace with real link
-  },
-  {
-    id: 2,
-    title: "Lexden.dev Portfolio",
-    description: "The site you are looking at! A modern portfolio built to showcase my work and learn the Next.js ecosystem.",
-    imageUrl: "/images/portfolio.jpg",
-    tags: ["Next.js", "TypeScript", "Tailwind CSS"],
-    status: "In Progress",
-    githubUrl: "https://github.com/Lexden12/lexden.dev",
-  },
-  {
-    id: 3,
-    title: "Microphone Integration",
-    description: "Software interface for high-fidelity audio capture and processing.",
-    imageUrl: "/images/mic-project.jpg", 
-    tags: ["Audio", "Software"],
-    status: "In Progress",
-  },
-];
+  const projectsData: Project[] = [
+    {
+      id: 1,
+      title: "This site!",
+      description: "The website you are looking at — built with Next.js and Tailwind.",
+      imageUrl: "/images/site.jpg",
+      tags: ["Next.js", "Tailwind"],
+      linkUrl: "/projects/website",
+      githubUrl: "https://github.com/Lexden12/lexden.dev",
+      status: "Completed",
+    },
+    {
+      id: 2,
+      title: "Microphone",
+      description: "A custom microphone project (WIP).",
+      imageUrl: "/images/microphone.jpg",
+      tags: ["Hardware", "Audio"],
+      linkUrl: "/projects/microphone",
+      status: "In Progress",
+    },
+    {
+      id: 3,
+      title: "CPU",
+      description: "A hobby CPU implementation and tooling.",
+      imageUrl: "/images/cpu.jpg",
+      tags: ["Hardware", "Verilog"],
+      linkUrl: "/projects/cpu",
+      status: "In Progress",
+    },
+    {
+      id: 4,
+      title: "Air Quality Meter",
+      description: "Environmental sensing project for home use.",
+      imageUrl: "/images/airquality.jpg",
+      tags: ["Sensors", "Embedded"],
+      linkUrl: "/projects/airquality",
+      status: "In Progress",
+    },
+  ];
 
 export default function ProjectsPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       
       <div className="mb-10">
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">My Projects</h1>
-        <p className="text-xl text-gray-600 max-w-2xl">
+        <h1 className="text-4xl font-bold text-neutral-100 mb-4">My Projects</h1>
+        <p className="text-xl text-neutral-300 max-w-2xl">
           Here is a collection of my work in software development and hardware engineering.
         </p>
       </div>
