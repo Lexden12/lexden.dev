@@ -1,0 +1,38 @@
+lexden.dev
+Copyright 2025 Alex "Lexden" Schendel
+
+This project uses the following third-party software. Copyright and
+license terms for each project are owned by their respective authors
+and contributors; please consult each project's website or repository
+for the full license text.
+
+Next.js
+- Copyright (c) Vercel, Inc.
+- https://nextjs.org
+
+React
+- Copyright (c) Meta Platforms, Inc.
+- https://react.dev
+
+React DOM
+- Copyright (c) Meta Platforms, Inc.
+
+Tailwind CSS
+- Copyright (c) Tailwind Labs, Inc.
+- https://tailwindcss.com
+
+TypeScript
+- Copyright (c) Microsoft Corporation
+- https://www.typescriptlang.org
+
+ESLint
+- Copyright (c) ESLint contributors
+- https://eslint.org
+
+PostCSS
+- Copyright (c) PostCSS contributors
+- https://postcss.org
+
+Other dependencies and dev-dependencies included in `package.json`
+are distributed under their own open-source licenses. See the
+corresponding package repositories for license details.
