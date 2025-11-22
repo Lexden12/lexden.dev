@@ -22,8 +22,6 @@ import Footer from "@/components/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Lexden.dev",
-  description: "The home of Lexden",
   metadataBase: new URL("https://lexden.dev/"),
   openGraph: {
     url: "https://lexden.dev/",

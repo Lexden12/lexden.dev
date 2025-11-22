@@ -13,11 +13,14 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-import MDXPage from './page.mdx';
+import MDXPage from './content.mdx';
+import type { Metadata } from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
     title: "About — Lexden",
     description: "About Alex \"Lexden\" Schendel — firmware engineer and maker.",
 };
 
-export default MDXPage;
+export default function AboutPage() {
+  return <MDXPage />;
+}
