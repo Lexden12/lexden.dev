@@ -33,6 +33,10 @@ PostCSS
 - Copyright (c) PostCSS contributors
 - https://postcss.org
 
+MDX / remark / rehype
+- Copyright (c) Compositor and Vercel
+- https://mdxjs.com
+
 Other dependencies and dev-dependencies included in `package.json`
 are distributed under their own open-source licenses. See the
 corresponding package repositories for license details.

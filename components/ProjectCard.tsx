@@ -29,9 +29,10 @@ export interface Project {
 
 interface ProjectCardProps {
   project: Project;
+  onNavigate?: () => void;
 }
 
-const ProjectCard = ({ project }: ProjectCardProps) => {
+const ProjectCard = ({ project, onNavigate }: ProjectCardProps) => {
   return (
     <div className="bg-neutral-900 rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col min-h-[18rem]">
       
@@ -75,7 +76,11 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
         {/* Buttons */}
         <div className="flex gap-3 mt-auto">
           {project.linkUrl && (
-            <Link href={project.linkUrl} className="flex-1 bg-blue-600 text-white text-center py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">
+            <Link 
+              href={project.linkUrl} 
+              onClick={onNavigate}
+              className="flex-1 bg-blue-600 text-white text-center py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition"
+            >
               View Project
             </Link>
           )}

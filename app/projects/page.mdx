@@ -1,0 +1,55 @@
+import ProjectCard from '@/components/ProjectCard'
+
+export const projectsData = [
+  {
+    id: 1,
+    title: 'This site!',
+    description: 'The website you are looking at — built with Next.js and Tailwind.',
+    imageUrl: '/images/site.jpg',
+    tags: ['Next.js', 'Tailwind'],
+    linkUrl: '/projects/website',
+    githubUrl: 'https://github.com/Lexden12/lexden.dev',
+    status: 'Completed',
+  },
+  {
+    id: 2,
+    title: 'Microphone',
+    description: 'A custom microphone project (WIP).',
+    imageUrl: '/images/microphone.jpg',
+    tags: ['Hardware', 'Audio'],
+    linkUrl: '/projects/microphone',
+    status: 'In Progress',
+  },
+  {
+    id: 3,
+    title: 'CPU',
+    description: 'A hobby CPU implementation and tooling.',
+    imageUrl: '/images/cpu.jpg',
+    tags: ['Hardware', 'Verilog'],
+    linkUrl: '/projects/cpu',
+    status: 'In Progress',
+  },
+  {
+    id: 4,
+    title: 'Air Quality Meter',
+    description: 'Environmental sensing project for home use.',
+    imageUrl: '/images/airquality.jpg',
+    tags: ['Sensors', 'Embedded'],
+    linkUrl: '/projects/airquality',
+    status: 'In Progress',
+  },
+]
+
+<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+# My Projects
+
+Here is a collection of my work in software development and hardware engineering.
+
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
+  {projectsData.map((project) => (
+    <ProjectCard key={project.id} project={project} />
+  ))}
+</div>
+
+</div>
