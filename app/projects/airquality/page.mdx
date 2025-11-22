@@ -1,7 +1,16 @@
-<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<article className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 prose prose-lg">
 
 # Air Quality Meter
 
-Environmental sensing project for monitoring air quality.
+The goal of this project is to build an air quality meter for use in the home. It provides identical capabilities to the [Air Lab](https://networkedartifacts.com/airlab/) but at a lower cost by going DiY.
+The overall sensor suite and MCU are identical, but instead of having a display and battery, this device is intended to be powered over USB and send data to a server over WiFi for logging and visualization.
+Overall, my BoM currently includes:
+- [Seeed Studio XIAO ESP32C3](https://www.seeedstudio.com/Seeed-XIAO-ESP32C3-p-5431.html) (microcontroller with WiFi)
+- [Adafruit SCD-41](https://www.adafruit.com/product/5190) (CO2, temperature, humidity sensor)
+- [Adafruit LPS22](https://www.adafruit.com/product/4633) (barometric pressure sensor)
+- [Adafruit SGP-40](https://www.adafruit.com/product/4829) (volatile organic compounds sensor)
+Optional:
+- [Adafruit PMSA003I](https://www.adafruit.com/product/4505) (particulate matter sensor)
 
-</div>
+I have the MCU and I plan to purchase the sensors soon. One note is that the SGP-40 is not identical to the SGP-41 used in the Air Lab. This would result in my version being unable to measure NOx levels, so I am not buying this yet and may look for an alternative sensor in the future.
+</article>

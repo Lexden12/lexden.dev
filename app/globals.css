@@ -15,6 +15,7 @@ limitations under the License.
 */
 
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 :root {
   --background: #0a0a0a;
