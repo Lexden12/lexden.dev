@@ -49,12 +49,12 @@ const Navbar = () => {
     },
     {
       id: 2,
-      title: "Microphone",
-      description: "A custom microphone project (WIP).",
-      imageUrl: "/images/microphone.jpg",
-      tags: ["Hardware", "Audio"],
-      linkUrl: "/projects/microphone",
-      status: "In Progress",
+      title: 'DiY USB-PD Battery Bank',
+      description: 'A DiY, repairable/replaceable battery bank.',
+      imageUrl: '/images/battery.jpg',
+      tags: ['Li-Ion', 'Battery'],
+      linkUrl: '/projects/battery',
+      status: 'In Progress',
     },
     {
       id: 3,
