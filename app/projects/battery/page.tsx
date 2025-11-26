@@ -17,8 +17,8 @@ import MDXPage from './content.mdx';
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: 'Microphone — Projects — Lexden', 
-  description: 'Work-in-progress microphone hardware project by Alex "Lexden" Schendel.' 
+  title: 'Battery Bank — Projects — Lexden', 
+  description: 'DiY battery bank hardware project by Alex "Lexden" Schendel.' 
 };
 
 export default function ProjectPage() {

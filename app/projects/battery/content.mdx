@@ -1,0 +1,52 @@
+{/*
+Copyright 2025 Alex "Lexden" Schendel
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/}
+<article className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 prose prose-lg">
+
+# DiY Battery Bank
+
+This project intends to make a DiY battery bank using off-the-shelf parts.
+
+The primary BoM includes:
+- IP2368 100W USB-C charge/discharge board
+- Balance charging BMS
+- Li-Ion Cells
+
+There are multiple options when it comes to charge/discharge boards, but the IP2368 is prolific and affordable (I found a decent one for <$10 on AliExpress). While this board does support charging with general battery protection features, it does not support balance charging, so it will not function well as a BMS.
+
+As such, we will want a dedicated BMS. For this, so there are limitless options for ridiculously low prices. For my purposes, I want a 2S battery bank, so I went with a generic 2S balance charging BMS for 3.7V nominal Li-Ion cells rated for 20A continuous discharge. This cost well below $2.
+
+I purchased some 16AWG XT30 battery connectors because the IP2368 board I am using has an XT30 connector on it for hoking up the battery. It also allows me to make the entire design more modular by using connectors rather than directly soldering.
+
+To this end, I also purchased some battery holder cases which can modularly connect to make an extensible battery pack. They look like this:
+![Modular battery cases](/battery-holder.png "Modular Battery Cases")
+They have both an 18650 and 21700 version, and the copper screws are capable of handling 25A of current, which is >2x what I will need.
+The included copper bars can be attached to the copper nuts to connect batteries in series or parallel.
+
+For Li-Ion cells, I typically use [Parametrek Batteries](http://batteries.parametrek.com/index.html) to filter for good value batteries. As it turns out, the Samsung 50E 21700 cells were having a wild Black Friday deal when I was looking, so I got those at a spot price of $2.65 each. In a 2S config, that would provide 5000mAh at a nominal voltage of 7.2V, providing 36Wh of capacity. This is suitable for my purposes.
+
+Generally, a 2S1P configuration will be better than a 1S2P configuration because although it does require special consideration in terms of balance charging, it is much more efficient in usage because the discharge current is dramatically reduced, so I2R losses are minimized.
+
+I am only going for a 2S1P configuration rather than more because:
+1. It keeps the size and weight down. I hope to make this something which is at least somewhat reasonable to throw in my pocket.
+2. It provides exactly the capacity I want. It can fully recharge my phone ~1.5 times. However, my intent is to use this as a auxiliary battery for a Steam Frame in the future, so this is why I aimed for a high 45W power output. Assuming the claimed 4 hours of battery life on the internal battery in streaming mode, this auxiliary battery would extend that by over 6 hours (over ten hours of play lol).
+
+While I never intend to play VR for 10 hours straight (hopefully not at least), this will serve me well as the Steam Frame's battery starts to degrade (and my battery bank's batteries as well). When I am on trips away from chargers, this battery bank will also serve well to recharge my devices.
+
+### implementation
+
+*Pending parts arrival*
+
+</article>
