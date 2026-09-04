@@ -29,13 +29,6 @@ const Navbar = () => {
 
   const router = useRouter();
 
-  // Navigation items array (easy to update later)
-  const navLinks = [
-    { name: "Home", href: "/" },
-    // Projects will be a dropdown handled below
-    { name: "About", href: "/about" },
-  ];
-
   const projects: Project[] = [
     {
       id: 1,

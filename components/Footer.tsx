@@ -20,7 +20,7 @@ export default function Footer() {
     <footer className="bg-neutral-900 text-neutral-400 mt-12 py-6">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm">
         <p>
-          © {new Date().getFullYear()} Alex "Lexden" Schendel — Built with Next.js
+          © {new Date().getFullYear()} Alex &quot;Lexden&quot; Schendel — Built with Next.js
         </p>
         <p className="mt-1">
           <Link href="/" className="underline hover:text-neutral-200">
