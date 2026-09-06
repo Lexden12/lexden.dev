@@ -19,7 +19,8 @@ limitations under the License.
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import ProjectCard, { Project } from "@/components/ProjectCard";
+import ProjectCard from "@/components/ProjectCard";
+import { projects } from "@/lib/projects";
 
 const Navbar = () => {
   // State to manage the mobile menu open/close status
@@ -28,46 +29,6 @@ const Navbar = () => {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
 
   const router = useRouter();
-
-  const projects: Project[] = [
-    {
-      id: 1,
-      title: "This site!",
-      description: "The website you are looking at — built with Next.js and Tailwind.",
-      imageUrl: "/images/site.jpg",
-      tags: ["Next.js", "Tailwind"],
-      linkUrl: "/projects/website",
-      githubUrl: "https://github.com/Lexden12/lexden.dev",
-      status: "Completed",
-    },
-    {
-      id: 2,
-      title: 'DiY USB-PD Battery Bank',
-      description: 'A DiY, repairable/replaceable battery bank.',
-      imageUrl: '/images/battery.jpg',
-      tags: ['Li-Ion', 'Battery'],
-      linkUrl: '/projects/battery',
-      status: 'In Progress',
-    },
-    {
-      id: 3,
-      title: "CPU",
-      description: "A hobby CPU implementation and tooling.",
-      imageUrl: "/images/cpu.jpg",
-      tags: ["Hardware", "Verilog"],
-      linkUrl: "/projects/cpu",
-      status: "In Progress",
-    },
-    {
-      id: 4,
-      title: "Air Quality Meter",
-      description: "Environmental sensing project for home use.",
-      imageUrl: "/images/airquality.jpg",
-      tags: ["Sensors", "Embedded"],
-      linkUrl: "/projects/airquality",
-      status: "In Progress",
-    },
-  ];
 
   const popoverRef = useRef<HTMLDivElement | null>(null);
   const popoverButtonRef = useRef<HTMLButtonElement | null>(null);
