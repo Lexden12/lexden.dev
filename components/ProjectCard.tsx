@@ -13,6 +13,9 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 
 // 1. Define the shape of a Project object (Type Safety)
@@ -32,18 +35,32 @@ interface ProjectCardProps {
   onNavigate?: () => void;
 }
 
+// Renders the card image, falling back to the project's initial letter when the
+// image URL is missing or the file fails to load (avoids a broken image icon).
+function CardImage({ src, alt }: { src?: string; alt: string }) {
+  const [error, setError] = useState(false);
+
+  if (!src || error) {
+    return (
+      <div className="w-full h-full bg-neutral-600 flex items-center justify-center text-5xl font-bold text-neutral-300 select-none">
+        {alt.charAt(0).toUpperCase()}
+      </div>
+    );
+  }
+
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img src={src} alt={alt} className="w-full h-full object-cover" onError={() => setError(true)} />
+  );
+}
+
 const ProjectCard = ({ project, onNavigate }: ProjectCardProps) => {
   return (
     <div className="bg-neutral-900 rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col min-h-[18rem]">
       
       {/* Image Section (use plain img to avoid Image layout issues) */}
       <div className="relative w-full bg-neutral-700 flex items-center justify-center overflow-hidden" style={{height: '12rem'}}>
-        {project.imageUrl ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover" />
-        ) : (
-          <div className="w-full h-full bg-neutral-600 flex items-center justify-center text-neutral-200">No image</div>
-        )}
+        <CardImage src={project.imageUrl} alt={project.title} />
 
         {/* Status Badge */}
         <div className="absolute top-2 right-2">
