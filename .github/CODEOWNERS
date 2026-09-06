@@ -1,0 +1,5 @@
+# Default owner for the entire repository.
+#
+# Any change (new file or edit) anywhere in the repo will request
+# @Lexden12 as a code owner for review.
+* @Lexden12
